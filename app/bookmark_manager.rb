@@ -36,14 +36,22 @@ class BookmarkManager < Sinatra::Base
 
   get '/tags/:name' do
     @requested_tag = params[:name]
-    @links_by_tag = []
     tags = Tag.all(name: @requested_tag)
+
+    @links_by_tag = get_links_by_tag(tags)
+
+    erb :'links/index'
+  end
+
+  def get_links_by_tag(tags)
+    @result = []
+
     tags.each do |tag|
       tag.links.each do |link|
-        @links_by_tag << link
+        @result << link
       end
     end
 
-    erb :'links/index'
+    @result
   end
 end
