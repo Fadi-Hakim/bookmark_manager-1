@@ -51,7 +51,6 @@ class BookmarkManager < Sinatra::Base
         @result << link
       end
     end
-
     @result
   end
 end
