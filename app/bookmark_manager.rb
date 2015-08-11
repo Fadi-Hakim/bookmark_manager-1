@@ -12,4 +12,19 @@ class BookmarkManager < Sinatra::Base
     @links = Link.all
     erb :'links/index'
   end
+
+  get '/links/new' do
+    erb :'links/new'
+  end
+
+  post '/link/create' do
+    url = params["url"]
+    title = params["title"]
+
+    link = Link.new(title: title, url: url)
+
+    if link.save
+      redirect to('/links')
+    end
+  end
 end
