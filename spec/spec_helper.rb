@@ -4,8 +4,6 @@ require 'database_cleaner'
 require File.join(File.dirname(__FILE__), '../app/bookmark_manager.rb')
 Capybara.app = BookmarkManager
 
-ENV['RACK_ENV'] = "test"
-
 RSpec.configure do |config|
 
   config.expect_with :rspec do |expectations|
