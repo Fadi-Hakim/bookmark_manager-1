@@ -1,10 +1,27 @@
-<h1> Links </h1>
+<% if @links %>
+  <h1>Links</h1>
 
-<ul id="links">
-  <% @links.each do |link| %>
-    <li>
-      Title: <%= link.title %>
-      URL:   <%= link.url   %>
-    </li>
-  <% end %>
-</ul>
+  <ul id="links">
+    <% @links.each do |link| %>
+      <li>
+        Title: <%= link.title %><br>
+        URL:   <%= link.url %><br>
+        tags:  
+        <% link.tags.each do |tag| %>
+          <%= tag.name %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% elsif @links_by_tag %>
+  <h1>Links (filtered by '<%= @requested_tag %>' tag)</h1>
+  <ul id="links">
+    <% @links_by_tag.each do |link| %>
+      <li>
+      Title: <%= link.title %><br>
+      URL: <%= link.url %><br>
+      tag: <%= @requested_tag %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
