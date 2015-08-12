@@ -17,16 +17,9 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/links' do
-    url = params["url"]
-    title = params["title"]
-    tags = (params["tags"]).split
-
-    link = Link.new(title: title, url: url)
-
-    tags.each do |name|
-      tag = Tag.create(name: name)
-      link.tags << tag
-    end
+    tags = (params[:tags]).split
+    link = Link.new(title: params[:title], url: params[:url])
+    create_link_tags(link, tags)
 
     if link.save
       redirect to('/links')
@@ -51,9 +44,17 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/users' do
-    user = User.create(email: params[:email], password_digest: params[:password])
+    p params
+    user = User.create(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     session[:user_id] = user.id
     redirect to('/links')
+  end
+
+  def create_link_tags link, tags
+    tags.each do |name|
+      tag = Tag.create(name: name)
+      link.tags << tag
+    end
   end
 
   def get_links_by_tag(tags)
