@@ -4,7 +4,7 @@ class Tag
   property :id,   Serial
   property :name, String
 
-  validates_length_of :name, min: 1
+  validates_presence_of :name
 
   has n, :links, through: Resource
 end

@@ -26,9 +26,4 @@ feature 'Adding tags' do
         expect(page).to have_content 'education'
         expect(page).to have_content 'ruby'
     end
-
-    scenario 'I cannot create an empty tag' do
-        tag = Tag.create(name: "")
-        expect(Tag.all).to be_empty
-    end
 end

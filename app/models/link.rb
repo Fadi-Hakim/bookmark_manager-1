@@ -8,6 +8,8 @@ class Link
   property :title,  String
   property :url,    String
 
+  validates_presence_of :url
+
   has n, :tags, through: Resource
 
 end
