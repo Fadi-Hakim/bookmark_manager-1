@@ -13,4 +13,5 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'guard-rspec'
+  gem 'factory_girl'
 end
