@@ -19,20 +19,28 @@ feature 'Viewing links' do
     click_on 'Create link'
   end
 
-  scenario 'I can see existing links on the links page' do
-    visit '/links'
-    within 'ul#links' do
-      expect(page).to have_content('Makers Academy')
+  context 'if three links have been created' do
+    scenario 'I can see those links on the links page' do
+      visit '/links'
+      within 'ul#links' do
+        expect(page).to have_content('Makers Academy')
+        expect(page).to have_content('Flickr')
+        expect(page).to have_content('My Flickr')
+      end
     end
-  end
 
-  scenario 'I can filter links by tag' do
-    visit '/tags/photos'
-    expect(page).to have_content("Links (filtered by 'photos' tag)")
-    within 'ul#links' do
-      expect(page).not_to have_content('Makers Academy')
-      expect(page).to have_content('Flickr')
-      expect(page).to have_content('My Flickr')
+    scenario 'I can filter links by tag' do
+      visit '/tags/photos'
+      within 'ul#links' do
+        expect(page).not_to have_content('Makers Academy')
+        expect(page).to have_content('Flickr')
+        expect(page).to have_content('My Flickr')
+      end
+    end
+
+    scenario 'the Links page declares what tag filter has been applied' do
+      visit '/tags/photos'
+      expect(page).to have_content("Links (filtered by 'photos' tag)")
     end
   end
 end
